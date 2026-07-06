@@ -1,46 +1,67 @@
-import React from 'react'
-import axios from "axios"
-import {useNavigate} from "react-router-dom"
+import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const API = "https://snapfeed-2q2i.onrender.com";
+
 const CreatePost = () => {
-    const navigate = useNavigate()
-    const handleSubmit = async (e) => {
-  e.preventDefault();
+  const navigate = useNavigate();
 
-  const formData = new FormData(e.target);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  axios
-    .post("http://localhost:3000/create-post", formData)
-    .then((res) => {
-        navigate("/feed")
-        console.log(res);
-    //   alert("Post created successfully");
-    //   e.target.reset();
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("Error creating post");
-    });
-};
+    const formData = new FormData(e.target);
+
+    try {
+      const res = await axios.post(
+        `${API}/create-post`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log(res.data);
+      alert("Post created successfully!");
+
+      e.target.reset();
+      navigate("/feed");
+    } catch (err) {
+      console.error(err);
+
+      if (err.response) {
+        alert(err.response.data.message || "Error creating post");
+      } else {
+        alert("Server is not responding");
+      }
+    }
+  };
+
   return (
-    <section className='create-post-section'>
-      <h1>Create post</h1>
+    <section className="create-post-section">
+      <h1>Create Post</h1>
 
       <form onSubmit={handleSubmit}>
         <input
           type="file"
           name="image"
           accept="image/*"
-        />
-         <input
-          type="text"
-          name="caption"
-          placeholder='Enter caption'
           required
         />
-        <button type='submit'>Submit</button>
+
+        <input
+          type="text"
+          name="caption"
+          placeholder="Enter caption"
+          required
+        />
+
+        <button type="submit">Submit</button>
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default CreatePost
+export default CreatePost;
