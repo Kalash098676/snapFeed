@@ -1,23 +1,42 @@
 require("dotenv").config();
+
 const app = require("./src/app");
 const connectDB = require("./src/db/db");
 
-connectDB();
+const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+// Connect to MongoDB
+connectDB()
+  .then(() => {
+    console.log("✅ MongoDB Connected");
+
+    // Root Route
+    app.get("/", (req, res) => {
+      res.status(200).json({
+        success: true,
+        message: "SnapFeed Backend is Running 🚀",
+      });
+    });
+
+    // Start Server
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ Database Connection Failed");
+    console.error(err);
+    process.exit(1);
+  });
+
+// Handle Uncaught Exceptions
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+  process.exit(1);
 });
 
-app.get("/api/posts", (req, res) => {
-  res.json([
-    {
-      _id: "1",
-      image: "https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=620&q=80",
-      caption: "Beautiful scenery",
-    },
-  ]);
-});
-
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+// Handle Unhandled Promise Rejections
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err);
+  process.exit(1);
 });
