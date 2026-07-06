@@ -1,29 +1,43 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+const API = "https://snapfeed-2q2i.onrender.com";
+
 const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/posts")
-      .then((res) => {
-        console.log(res.data);
-        setPosts(res.data.posts);
-      })
-      .catch((err) => console.error(err));
+    fetchPosts();
   }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const res = await axios.get(`${API}/posts`);
+      console.log(res.data);
+      setPosts(res.data.posts);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load posts");
+    }
+  };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/posts/${id}`);
+      await axios.delete(`${API}/posts/${id}`);
 
-      setPosts(posts.filter((post) => post._id !== id));
+      setPosts((prevPosts) =>
+        prevPosts.filter((post) => post._id !== id)
+      );
 
       alert("Post deleted successfully");
     } catch (err) {
       console.error(err);
-      alert("Error deleting post");
+
+      if (err.response) {
+        alert(err.response.data.message || "Error deleting post");
+      } else {
+        alert("Server is not responding");
+      }
     }
   };
 
