@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body,
+#root{
+height: 100%;
+width: 100%;
+}
+html{
+  font-family: system-ui, -apple-system, Bl
+  inkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 
+  Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.create-post-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+    background-color: #f0f2f5;
+}
+.create-post-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.create-post-section input,
+.create-post-section textarea {
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+}
+
+.create-post-section textarea {
+    resize: none;
+    min-height: 100px;
+}
+
+.create-post-section button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #18c6f2;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.create-post-section button:hover {
+    background-color: #3e5777;
+}
+.feed-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+.post-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+.post-card img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.post-card p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+}
+.delete-btn {
+  background: #e0f2fe;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #0284c7;
+  color: #bae6fd;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+.delete-btn {
+  display: block;
+  margin: 15px auto 0;
+}
