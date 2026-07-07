@@ -1,6 +1,6 @@
 const { ImageKit } = require("@imagekit/nodejs");
 
-console.log("ImageKit:", ImageKit);
+console.log("ImageKit Class:", ImageKit);
 
 const imagekit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -8,7 +8,8 @@ const imagekit = new ImageKit({
   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
-console.log("Upload function:", typeof imagekit.upload);
+console.log("ImageKit Instance:", imagekit);
+console.log("upload:", typeof imagekit.upload);
 
 async function uploadFile(buffer) {
   return await imagekit.upload({
